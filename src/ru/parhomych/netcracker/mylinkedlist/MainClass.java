@@ -1,5 +1,7 @@
 package ru.parhomych.netcracker.mylinkedlist;
 
+import java.util.LinkedList;
+
 public class MainClass {
     public static void main(String[] args) {
         MyLinkedList<Circle> myLinkedList = new MyLinkedList<>();
@@ -119,7 +121,54 @@ public class MainClass {
         System.out.println("After remove(4):");
         myLinkedList.displayMyLinkedList();
 
-        System.out.println("Test toArray");
-        System.out.println(myLinkedList.toArray());
+/*        System.out.println("Test toArray");
+        System.out.println(myLinkedList.toArray());*/
+
+        System.out.println("*******************************");
+        // MyLinkedList vs LinkedList
+        myLinkedList.clear();
+
+        for (int i = 0; i < 10000; i++) {
+            myLinkedList.add(Circle.getRandomCircle());
+        }
+
+        LinkedList<Circle> linkedList = new LinkedList<>();
+
+        for (int i = 0; i < 10000; i++) {
+            linkedList.add(Circle.getRandomCircle());
+        }
+
+        long startTime, endTime, estimatedTime;
+        // add
+        startTime = System.nanoTime();
+
+        myLinkedList.add(4000, new Circle(3,"red"));
+
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("myLinkedList.add --> " + estimatedTime);
+
+        startTime = System.nanoTime();
+
+        linkedList.add(4000, new Circle(3,"red"));
+
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("linkedList.add --> " + estimatedTime);
+
+        // TODO дописать сравнения времени
+
+        // search
+
+        myLinkedList.indexOf(new Circle(3,"red"));
+
+        linkedList.indexOf(new Circle(3,"red"));
+
+        // remove
+
+        myLinkedList.remove(8000);
+
+        linkedList.remove(8000);
+
     }
 }

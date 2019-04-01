@@ -1,5 +1,7 @@
 package ru.parhomych.netcracker.mylinkedlist;
 
+import java.util.Random;
+
 public class Circle {
 
     private double radius = 1.0d;
@@ -15,6 +17,22 @@ public class Circle {
     public Circle(double radius, String color) {
         this.radius = radius;
         this.color = color;
+    }
+
+    public static Circle getRandomCircle() {
+        Circle instance;
+
+        Random rand = new Random();
+        double radius = rand.nextDouble() * 100;
+        int sizeOfStr = 1 + rand.nextInt(10);
+        char[] charArr = new char[sizeOfStr];
+        for (int i = 0; i < sizeOfStr; i++){
+            charArr[i] = (char)(rand.nextInt(26) + 97);
+        }
+        String colorName = String.copyValueOf(charArr);
+        instance = new Circle(radius, colorName);
+
+        return instance;
     }
 
     public double getRadius() {

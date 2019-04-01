@@ -185,6 +185,8 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return currentIndex;
     }
 
+
+    // TODO: Разобраться с toArray
     @Override
     public E[] toArray() {
         /*Class<E>
