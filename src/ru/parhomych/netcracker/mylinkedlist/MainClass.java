@@ -86,9 +86,40 @@ public class MainClass {
                 + myLinkedList.indexOf(new Circle(4, "yellow")));
 
         System.out.println();
+        System.out.println("Test for toString");
+        System.out.println(myLinkedList);
+        myLinkedList.clear();
+        System.out.println(myLinkedList);
 
+        System.out.println();
+        System.out.println("Test for set()");
+        System.out.println("Before set index 1:");
+        myLinkedList.add(new Circle(0, "red"));
+        myLinkedList.add(new Circle(0, "red"));
+        myLinkedList.add(new Circle(0, "red"));
+        myLinkedList.displayMyLinkedList();
+        myLinkedList.set(1, new Circle(4, "blue"));
+        System.out.println("After set index 1:");
+        myLinkedList.displayMyLinkedList();
 
+        System.out.println();
+        System.out.println("Test for node(1):");
+        System.out.println(myLinkedList.node(1));
 
+        System.out.println();
+        System.out.println("Test for remove");
+        myLinkedList.add(new Circle(34, "tomato"));
+        myLinkedList.add(new Circle(24, "pink"));
+        myLinkedList.add(new Circle(467, "lime"));
+        myLinkedList.displayMyLinkedList();
+        myLinkedList.remove(0);
+        System.out.println("After remove(0):");
+        myLinkedList.displayMyLinkedList();
+        myLinkedList.remove(4);
+        System.out.println("After remove(4):");
+        myLinkedList.displayMyLinkedList();
 
+        System.out.println("Test toArray");
+        System.out.println(myLinkedList.toArray());
     }
 }

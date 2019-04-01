@@ -32,6 +32,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         } else {
             System.out.println("There are no any elements!");
         }
+        System.out.println();
     }
 
     @Override
@@ -114,30 +115,61 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        int listSize = size();
+        if (!isElementIndex(index)){
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> nodeToRemove = node(index);
+        E elementToReturn = nodeToRemove.getElement();
+        if (index == 0){
+            firstNode = nodeToRemove.getNextNode();
+        } else if (index == listSize-1) {
+            node(listSize-2).setNextNode(null);
+        } else {
+            node(index - 1).setNextNode(node(index + 1));
+        }
+        nodeToRemove.setNextNode(null);
+
+        return elementToReturn;
+    }
+
+    public Node<E> node(int index){
+        if (isElementIndex(index)){
+            Node<E> currentNode = firstNode;
+            if (index == 0){
+                return currentNode;
+            } else {
+                for(int i = 0; i < index; i++){
+                    currentNode = currentNode.getNextNode();
+                }
+            }
+            return currentNode;
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     @Override
     public E set(int index, E element) {
-        /*if (firstNode != null){
+        if (firstNode != null){
             if (this.isElementIndex(index)){
-                int currentIndex = 0;
                 Node<E> currentNode = firstNode;
-                while (!element.equals(currentNode.getElement()) || currentIndex < size()){
+                for (int i = 0; i < index; i++){
                     currentNode = currentNode.getNextNode();
                 }
-                if (currentIndex == null )
+                currentNode.setElement(element);
+                return currentNode.getElement();
             } else {
                 throw new IndexOutOfBoundsException();
             }
         } else {
             if (index == 0){
                 this.insertFirst(element);
+                return this.firstNode.getElement();
             } else {
                 throw new IndexOutOfBoundsException();
             }
-        }*/
-        return null;
+        }
     }
 
     @Override
@@ -155,6 +187,14 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E[] toArray() {
+        /*Class<E>
+        @SuppressWarnings("unchecked") E[] result = new E[size()];
+        int i = 0;
+        for (Node<E> x = firstNode; x != null; x = x.getNextNode())
+            result[i++] = x.getElement();
+
+        return (E[])result;*/
+
         return null;
     }
 
@@ -162,5 +202,17 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     public Iterator<E> iterator() {
         iterator = new MyLinkedListIterator<>(firstNode);
         return iterator;
+    }
+
+    @Override
+    public String toString() {
+        if (firstNode == null){
+            return "**************\nEmpty MyLinkedList\n***************";
+        }
+        return "*************\n" +
+                "MyLinkedList of " +
+                this.size() + " elements. \n" +
+                "Type of elements: " + firstNode.getElement().getClass().getSimpleName() + "\n" +
+                "************\n";
     }
 }
