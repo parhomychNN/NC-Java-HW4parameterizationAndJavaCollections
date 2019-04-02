@@ -3,6 +3,7 @@ package ru.parhomych.netcracker.mylinkedlist;
 import java.util.LinkedList;
 
 public class MainClass {
+
     public static void main(String[] args) {
         MyLinkedList<Circle> myLinkedList = new MyLinkedList<>();
 
@@ -121,10 +122,29 @@ public class MainClass {
         System.out.println("After remove(4):");
         myLinkedList.displayMyLinkedList();
 
-/*        System.out.println("Test toArray");
-        System.out.println(myLinkedList.toArray());*/
+        System.out.println("Test toArray");
+        Object[] circles = myLinkedList.toArray();
+        System.out.println("Array circles (type --> Object[]) is:");
+        for (int i = 0; i < myLinkedList.size(); i++){
+            System.out.println(circles[i]);
+        }
 
-        System.out.println("*******************************");
+        System.out.println("It's length is --> " + circles.length);
+
+        System.out.println("********** ortothoxcircle (type --> Circle[]) *******");
+        Circle[] ortothoxcircle = new Circle[circles.length];
+        for (int i = 0; i < circles.length; i++) {
+            ortothoxcircle[i] = (Circle) circles[i];
+        }
+
+        for (Circle item :
+                ortothoxcircle) {
+            System.out.println(item);
+        }
+
+        System.out.println();
+
+        System.out.println("************* MyLinkedList vs LinkedList ******************");
         // MyLinkedList vs LinkedList
         myLinkedList.clear();
 
@@ -139,36 +159,45 @@ public class MainClass {
         }
 
         long startTime, endTime, estimatedTime;
+
         // add
         startTime = System.nanoTime();
-
         myLinkedList.add(4000, new Circle(3,"red"));
-
         endTime = System.nanoTime();
         estimatedTime = endTime - startTime;
         System.out.println("myLinkedList.add --> " + estimatedTime);
 
         startTime = System.nanoTime();
-
         linkedList.add(4000, new Circle(3,"red"));
-
         endTime = System.nanoTime();
         estimatedTime = endTime - startTime;
         System.out.println("linkedList.add --> " + estimatedTime);
 
-        // TODO дописать сравнения времени
-
         // search
+        startTime = System.nanoTime();
+        System.out.println("index --> " + myLinkedList.indexOf(new Circle(3,"red")));
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("myLinkedList.indexOf --> " + estimatedTime);
 
-        myLinkedList.indexOf(new Circle(3,"red"));
-
-        linkedList.indexOf(new Circle(3,"red"));
+        startTime = System.nanoTime();
+        System.out.println("index --> " + linkedList.indexOf(new Circle(3,"red")));
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("linkedList.indexOf --> " + estimatedTime);
 
         // remove
-
+        startTime = System.nanoTime();
         myLinkedList.remove(8000);
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("myLinkedList.remove --> " + estimatedTime);
 
+        startTime = System.nanoTime();
         linkedList.remove(8000);
+        endTime = System.nanoTime();
+        estimatedTime = endTime - startTime;
+        System.out.println("linkedList.remove --> " + estimatedTime);
 
     }
 }

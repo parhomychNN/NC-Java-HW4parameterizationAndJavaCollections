@@ -105,10 +105,13 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public int indexOf(E element) {
-        for (int i = 0; i < this.size(); i++){
-            if(this.get(i).equals(element)){
+        int i = 0;
+        for (Node<E> currentNode = firstNode; currentNode.getNextNode() != null; ){
+            if (currentNode.getElement().equals(element)){
                 return i;
             }
+            i = i + 1;
+            currentNode = currentNode.getNextNode();
         }
         return -1;
     }
@@ -119,16 +122,23 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         if (!isElementIndex(index)){
             throw new IndexOutOfBoundsException();
         }
-        Node<E> nodeToRemove = node(index);
-        E elementToReturn = nodeToRemove.getElement();
+
+        Node<E> nodeToRemove;
+        E elementToReturn = null;
         if (index == 0){
-            firstNode = nodeToRemove.getNextNode();
+            nodeToRemove = firstNode;
+            firstNode = firstNode.getNextNode();
+            nodeToRemove.setNextNode(null);
         } else if (index == listSize-1) {
             node(listSize-2).setNextNode(null);
         } else {
-            node(index - 1).setNextNode(node(index + 1));
+            Node<E> nodeBeforeRemove = node(index-1);
+            nodeToRemove = nodeBeforeRemove.getNextNode();
+            Node<E> nodeAfterRemove = nodeToRemove.getNextNode();
+            elementToReturn = nodeToRemove.getElement();
+            nodeBeforeRemove.setNextNode(nodeAfterRemove);
+            nodeToRemove.setNextNode(null);
         }
-        nodeToRemove.setNextNode(null);
 
         return elementToReturn;
     }
@@ -185,19 +195,13 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return currentIndex;
     }
 
-
-    // TODO: Разобраться с toArray
     @Override
     public E[] toArray() {
-        /*Class<E>
-        @SuppressWarnings("unchecked") E[] result = new E[size()];
+        Object[] result = new Object[size()];
         int i = 0;
         for (Node<E> x = firstNode; x != null; x = x.getNextNode())
             result[i++] = x.getElement();
-
-        return (E[])result;*/
-
-        return null;
+        return (E[]) result;
     }
 
     @Override
