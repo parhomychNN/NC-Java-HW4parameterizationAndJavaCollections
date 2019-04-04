@@ -142,6 +142,12 @@ public class MainClass {
             System.out.println(item);
         }
 
+        System.out.println("********************************");
+        System.out.println("Test reflection (toArray(T[] a))");
+        Circle[] reflArr = new Circle[myLinkedList.size()];
+        myLinkedList.toArray(reflArr);
+        System.out.println(reflArr[1]);
+
         System.out.println();
 
         System.out.println("************* MyLinkedList vs LinkedList ******************");

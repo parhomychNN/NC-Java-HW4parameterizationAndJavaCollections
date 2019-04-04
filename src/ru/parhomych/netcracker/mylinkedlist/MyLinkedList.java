@@ -204,6 +204,21 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return (E[]) result;
     }
 
+    public <T> T[] toArray(T[] a) {
+        if (a.length < size())
+            a = (T[])java.lang.reflect.Array.newInstance(
+                    a.getClass().getComponentType(), size());
+        int i = 0;
+        Object[] result = a;
+        for (Node<E> x = firstNode; x != null; x = x.getNextNode())
+            result[i++] = x.getElement();
+
+        if (a.length > size())
+            a[size()] = null;
+
+        return a;
+    }
+
     @Override
     public Iterator<E> iterator() {
         iterator = new MyLinkedListIterator<>(firstNode);

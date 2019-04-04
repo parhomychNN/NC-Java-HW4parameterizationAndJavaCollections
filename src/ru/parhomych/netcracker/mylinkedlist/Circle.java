@@ -2,7 +2,7 @@ package ru.parhomych.netcracker.mylinkedlist;
 
 import java.util.Random;
 
-public class Circle {
+public class Circle implements Comparable<Circle>{
 
     private double radius = 1.0d;
     private String color = "red";
@@ -83,5 +83,22 @@ public class Circle {
     public double getArea(){
         double area = Math.PI * Math.pow(radius, 2);
         return area;
+    }
+//&& this.getColor().compareTo(o.getColor()) == 0
+    @Override
+    public int compareTo(Circle o) {
+        if (Double.compare(this.radius, o.getRadius()) == 0 ){
+            if (this.getColor().compareTo(o.getColor()) == 0){
+                return 0;
+            } else if (this.getColor().compareTo(o.getColor()) > 0){
+                return 1;
+            } else {
+                return -1;
+            }
+        } else if (Double.compare(this.radius, o.getRadius()) > 0){
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
